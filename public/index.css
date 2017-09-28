@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.mind-map-container {
+  border: 1px solid #e6e6e6;
+  border-radius: 7px;
+  margin-top: 20px;
+  padding-bottom: 12px;
+}
+.ownContainer{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+body{
+  text-align: center;
+  height: 600px;
+}
+.full-text-menu.col-md-12 {
+  border: 1px solid #e6e6e6;
+  margin-top: 22px;
+  border-radius: 7px;
+  background-color: #fdfbfb;
+  margin-bottom: 80px;
+}
+p.full-text {
+  margin-bottom: 20px;
+}
+.navigation-menu{
+  border: 1px solid #e6e6e6;
+  margin-top: 22px;
+  border-radius: 7px;
+  background-color: #fdfbfb;
+  display: flex;
+  justify-content: center;
+}
+h3.question.col-md-12 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .container-small {
+    width: 300px;
+  }
+  .container-large {
+    width: 1470px;
+  }
+}
+@media (min-width: 992px) {
+  .container-small {
+    width: 500px;
+  }
+  .container-large {
+    width: 1670px;
+  }
+}
+@media (min-width: 1200px) {
+  .container-small {
+    width: 700px;
+  }
+  .container-large {
+    width: 2000px;
+  }
+}
+
+.container-small, .container-large {
+  max-width: 100%;
+}
+p.supporting {
+  display: inline-block;
+  color: blue;
+}
+p.disproving {
+  display: inline-block;
+  color: red;
+}
+img {
+  padding: 23px;
+}
+.node-map{
+  border-radius: 21px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 13px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.node-map-supporting{
+  border: 1px solid blue;
+  background-color: rgba(33, 62, 228, 0.41);
+}
+.node-map-disproving{
+  border: 1px solid red;
+  background-color: rgba(244, 67, 54, 0.43);
+}
+.node-map-disproving:hover{
+  cursor: pointer;
+  background-color: rgba(244, 67, 54, 0.8);
+}
+.node-map-supporting:hover{
+  cursor: pointer;
+  background-color: rgba(33, 62, 228, 0.8);
+}
+.nodeContainer{
+  border: 1px solid black;
+}
+.node-map-question {
+  border: 1px solid #acacac;
+  background-color: #f6f6f6;
+  margin-top: 28px;
+  padding: 12px;
+  font-size: 20px;
+}
