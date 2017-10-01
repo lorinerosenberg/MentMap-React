@@ -231,10 +231,6 @@ const info = {
 
 };
 
-var container;
-var edges;
-var data;
-var network;
 var selectedNode;
 var parentNode;
 var childrenNodes;
@@ -244,114 +240,17 @@ var parent;
 var selected;
 var supporting;
 var disproving;
-var nodeDataShortText;
-var currentNodeDataID;
-var questionNode = info[1].shortText;
-var nodeMapArray = [];
 var clickedData;
 
-function getData(selectedID) {
-    console.log('function runs');
-    selectedNode = info[selectedID];
-    parentNode = selectedNode.parent; //returns an id [100]
-    childrenNodes = selectedNode.children; // returns one value or array [1010, 1011]
-    nodeData = [];
-    edgeData = [];
-
-    if (childrenNodes != null && parentNode != null) {
-        // node data
-        parent = {
-            parent: info[parentNode].parent,
-            id: parentNode,
-            class: 'parent',
-            label: info[parentNode].shortText,
-            fullText: info[parentNode].fullText,
-            group: info[parentNode].group
-        };
-        selected = {
-            parent: selectedNode.parent,
-            id: 'selected',
-            label: selectedNode.shortText,
-            fullText: selectedNode.fullText,
-            group: selectedNode.group,
-            mass: 1
-        };
-        supporting = {
-            id: 'supporting',
-            group: 'supportingNode',
-            size: 30
-        };
-        disproving = {
-            id: 'disproving',
-            group: 'disprovingNode',
-            size: 30
-        };
-
-        // formatting and pushing childNode data into an array
-        for (var i in childrenNodes) {
-            var childNode = childrenNodes[i];
-            var childID = selectedID;
-            var edgeID = selectedID;
-            var nodeGroup = info[childNode].group;
-
-            window['child' + childID + i] = {
-                parent: info[childNode].parent,
-                id: childID + i,
-                class: 'child',
-                label: info[childNode].shortText,
-                fullText: info[childNode].fullText,
-                group: nodeGroup,
-                children: info[childNode].children
-            };
-            nodeData.push(window['child' + childID + i]);
-            // TODO nodes only when it has children
-            if (nodeGroup == 'supporting'){
-                window['edge' + edgeID + i] = {
-                    id: edgeID + i,
-                    from: 'supporting',
-                    to: childID + i
-                };
-                edgeData.push(window['edge' + edgeID + i]);
-            }
-            else if (nodeGroup == 'disproving'){
-                window['edge' + edgeID + i] = {
-                    id: edgeID + i,
-                    from: 'disproving',
-                    to: childID + i
-                };
-                edgeData.push(window['edge' + edgeID + i]);
-            }
-        }
-    }
-    else {
-        return null;
-    }
-
-    nodeData.push(parent, selected, supporting, disproving);
-    edgeData.push({from: parentNode, to: 'selected', physics: true, smooth: false, dashes: [10,10,10]},
-        {from: 'selected', to: 'supporting', physics: false, smooth: false, arrows: {to: {enabled: false}}},
-        {from: 'selected', to: 'disproving', physics: false, smooth: false, arrows: {to: {enabled: false}}});
-}
 
 
 class App extends Component{
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
+
             graph: {},
-            options: {},
-            events: {}
-        };
-
-    }
-
-    componentWillMount() {
-        getData(100);
-
-        this.setState({
-            graph: {nodes: nodeData,
-                edges: edgeData},
             options: {
 
                 autoResize: true,
@@ -460,63 +359,113 @@ class App extends Component{
                     }
                 }
             },
+            events: {}
+        };
+    }
+
+    getData = (selectedID) => {
+    console.log('function runs');
+    selectedNode = info[selectedID];
+    parentNode = selectedNode.parent; //returns an id [100]
+    childrenNodes = selectedNode.children; // returns one value or array [1010, 1011]
+    nodeData = [];
+    edgeData = [];
+
+    if (childrenNodes != null && parentNode != null) {
+        // node data
+        parent = {
+            parent: info[parentNode].parent,
+            id: parentNode,
+            class: 'parent',
+            label: info[parentNode].shortText,
+            fullText: info[parentNode].fullText,
+            group: info[parentNode].group
+        };
+        selected = {
+            parent: selectedNode.parent,
+            id: 'selected',
+            label: selectedNode.shortText,
+            fullText: selectedNode.fullText,
+            group: selectedNode.group,
+            mass: 1
+        };
+        supporting = {
+            id: 'supporting',
+            group: 'supportingNode',
+            size: 30
+        };
+        disproving = {
+            id: 'disproving',
+            group: 'disprovingNode',
+            size: 30
+        };
+
+        // formatting and pushing childNode data into an array
+        for (var i in childrenNodes) {
+            var childNode = childrenNodes[i];
+            var childID = selectedID;
+            var edgeID = selectedID;
+            var nodeGroup = info[childNode].group;
+
+            window['child' + childID + i] = {
+                parent: info[childNode].parent,
+                id: childID + i,
+                class: 'child',
+                label: info[childNode].shortText,
+                fullText: info[childNode].fullText,
+                group: nodeGroup,
+                children: info[childNode].children
+            };
+            nodeData.push(window['child' + childID + i]);
+            // TODO nodes only when it has children
+            if (nodeGroup == 'supporting'){
+                window['edge' + edgeID + i] = {
+                    id: edgeID + i,
+                    from: 'supporting',
+                    to: childID + i
+                };
+                edgeData.push(window['edge' + edgeID + i]);
+            }
+            else if (nodeGroup == 'disproving'){
+                window['edge' + edgeID + i] = {
+                    id: edgeID + i,
+                    from: 'disproving',
+                    to: childID + i
+                };
+                edgeData.push(window['edge' + edgeID + i]);
+            }
+        }
+    }
+    else {
+        return null;
+    }
+
+    nodeData.push(parent, selected, supporting, disproving);
+    edgeData.push({from: parentNode, to: 'selected', physics: true, smooth: false, dashes: [10,10,10]},
+        {from: 'selected', to: 'supporting', physics: false, smooth: false, arrows: {to: {enabled: false}}},
+        {from: 'selected', to: 'disproving', physics: false, smooth: false, arrows: {to: {enabled: false}}});
+
+    this.setState({
+        graph: {nodes: nodeData,
+            edges: edgeData}
+    })
+}
+
+
+    componentWillMount() {
+        this.getData(100);
+
+        this.setState({
+            graph: {nodes: nodeData,
+                edges: edgeData},
             events: {
-                doubleClick: function(event){
+                doubleClick: (event) => {
                     var {nodes} = event;
                     clickedData = parseInt(nodes);
-                    getData(clickedData);
+                    this.getData(clickedData);
                 },
-                selectNode: function(event){
-                    var {nodes} = event;
-                    currentNodeDataID = nodes;
-                    nodeData = info[nodes];
-                    console.log(nodeData);
-                    nodeDataShortText = nodeData.shortText;
-                    // if (nodeData){
-                    //     var text = nodeData.fullText;
-                    //     var childNode = nodeData.children;
-                    // }
-                    // var supporting = 0;
-                    // var disproving = 0;
-                    // for (var i in childNode){
-                    //     var oneNode = childNode[i];
-                    //     var oneNodeData = info[oneNode];
-                    //     if (oneNodeData.group == 'supporting'){
-                    //         supporting = supporting + 1
-                    //     }
-                    //     else if (oneNodeData.group == 'disproving'){
-                    //         disproving = disproving + 1
-                    //     }
-                    //     else if (oneNodeData.group == null){
-                    //         return null
-                    //     }
-                    // }
-                    // if (currentNodeDataID == 'supporting' || currentNodeDataID == 'disproving') {
-                    //     return null
-                    // }
-                    // else if (currentNodeDataID != 'selected' && currentNodeDataID != parentNode) {
-                    //     var nodeDataText = '<b>' + supporting + '    </b>' + '    <code>' + disproving + '</code>' + '\n' + text;
-                    //     nodeDataText = nodeDataText.replace(/(\S(.{0,50}\S)?)\s+/g, '$1\n');
-                    //     nodes.update({
-                    //         id: currentNodeDataID,
-                    //         label: nodeDataText,
-                    //         shortText: nodeDataShortText,
-                    //         font: {size: 30}
-                    //     });
-                    // }
-                    // else {
-                    //     var nodeDataText = text;
-                    //     nodeDataText = nodeDataText.replace(/(\S(.{0,50}\S)?)\s+/g, '$1\n');
-                    //     nodes.update({
-                    //         id: currentNodeDataID,
-                    //         label: nodeDataText,
-                    //         shortText: nodeDataShortText,
-                    //         font: {size: 30}
-                    //     });
-                    // }
-                    // network.fit();
-                }
             }
+
         })
 
     }
@@ -534,4 +483,3 @@ class App extends Component{
 }
 
 ReactDOM.render(<App />, document.querySelector('#root'));
-
