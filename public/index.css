@@ -4,8 +4,6 @@ body {
   font-family: sans-serif;
 }
 .mind-map-container {
-  border: 1px solid #e6e6e6;
-  border-radius: 7px;
   margin-top: 20px;
   padding-bottom: 12px;
 }
@@ -113,4 +111,25 @@ img {
   margin-top: 28px;
   padding: 12px;
   font-size: 20px;
+}
+.question{
+  border: 1px solid #e6e6e6;
+  border-radius: 7px;
+  padding: 19px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+.graph{
+  border: 1px solid #e6e6e6;
+  border-radius: 7px;
+}
+.full-text-menu{
+  border: 1px solid #e6e6e6;
+  border-radius: 7px;
+  margin-top: 22px;
+}
+
+.full-text {
+  padding: 35px;
+  padding-top: 0px;
 }
